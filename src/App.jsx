@@ -1,42 +1,22 @@
-import React, { Fragment, useState, useEffect } from "react"
+import React, { Fragment, useState } from "react"
 import T1Image from "./components/T1Image"
 import FlairImage from "./components/FlairImage"
 import Result from "./components/Result"
 import T1AndFlare from "./components/T1AndFlare"
-import { switchStateHandler } from "./util/util"
+import { FLAIR, switchStateHandler, T1, T1FLAIR } from "./util/util"
 
 function App() {
-  const [isSending, setIsSending] = useState("")
-  const [showIsSending, setShowIsSending] = useState(false)
-
   const [resultArray, setResultArray] = useState([])
 
   const [isResult, setIsResult] = useState(false)
   const [choice, setChoice] = useState({})
 
-  useEffect(() => {
-    setShowIsSending(true)
-    let timer = setTimeout(() => {
-      setShowIsSending(false)
-      setIsSending("Sent")
-    }, 2000)
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [isSending])
-
-  const T1 = "T1"
-  const FLAIR = "FLAIR"
-  const T1FLAIR = "T1 + FLAIR"
-
   const resultData = resultArray.map((el, key) => <p key={key}>{el}</p>)
-
-  // CHECK FOR VALID COMBINATIONS. Get Results Button Can be shown whenever it is right combination.
 
   return (
     <Fragment>
-      <div>THIS IS MRI APP</div>
-      <div>
+      <div style={{ margin: "10px" }}>THIS IS MRI APP</div>
+      <div style={{ margin: "10px" }}>
         <button
           onClick={() => {
             setChoice({ value: 1, heading: T1 })
@@ -69,15 +49,11 @@ function App() {
         <div>
           {!isResult ? (
             <div>
-              <h1>{T1} INPUT IMAGE</h1>
+              <h2 style={{ margin: "10px" }}>{choice.heading} INPUT IMAGE</h2>
               <T1Image
-                setIsSending={setIsSending}
                 setResultArray={setResultArray}
-                showIsSending={showIsSending}
-                isSending={isSending}
                 setIsResult={setIsResult}
                 switchStateHandler={switchStateHandler}
-                setIsStructuralSegmentInParent={undefined}
               ></T1Image>
             </div>
           ) : (
@@ -89,12 +65,9 @@ function App() {
         <div>
           {!isResult ? (
             <div>
-              <h1>{FLAIR} INPUT IMAGE</h1>
+              <h2 style={{ margin: "10px" }}>{choice.heading} INPUT IMAGE</h2>
               <FlairImage
-                setIsSending={setIsSending}
                 setResultArray={setResultArray}
-                showIsSending={showIsSending}
-                isSending={isSending}
                 setIsResult={setIsResult}
                 switchStateHandler={switchStateHandler}
               ></FlairImage>
@@ -108,12 +81,9 @@ function App() {
         <div>
           {!isResult ? (
             <div>
-              <h1>{T1FLAIR} INPUT IMAGES</h1>
+              <h2 style={{ margin: "10px" }}>{choice.heading} INPUT IMAGES</h2>
               <T1AndFlare
-                setIsSending={setIsSending}
                 setResultArray={setResultArray}
-                showIsSending={showIsSending}
-                isSending={isSending}
                 setIsResult={setIsResult}
                 switchStateHandler={switchStateHandler}
               ></T1AndFlare>

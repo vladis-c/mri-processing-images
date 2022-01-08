@@ -6,6 +6,7 @@ import StructuralSegment from "./T1Process/StructuralSegment"
 import TensorBased from "./T1Process/TensorBased"
 import SendImageButton from "./UI/SendImageButton"
 import GetResultButton from "./UI/GetResultButton"
+import { T1 } from "../util/util"
 
 function T1Image(props) {
   const [T1imageInput, setT1ImageInput] = useState(false)
@@ -27,11 +28,11 @@ function T1Image(props) {
           sendInfoFucntion={() =>
             sendInfoFucntion(setT1ImageInput, (oldArray) => [
               ...oldArray,
-              "Image of T1 is sent",
+              `Image of ${T1}`,
             ])
           }
           imageState={T1imageInput}
-          sendImageMessage={"Send Image of T1"}
+          sendImageMessage={`Send Image of ${T1}`}
         />
 
         <div>
@@ -40,7 +41,7 @@ function T1Image(props) {
               onClick={() => {
                 sendInfoFucntion(setIsSkullStrip, (oldArray) => [
                   ...oldArray,
-                  "Skull Strip information is sent",
+                  <SkullStrip />,
                 ])
               }}
               disabled={T1imageInput && !isSkullStrip ? false : true}
@@ -52,7 +53,7 @@ function T1Image(props) {
               onClick={() => {
                 sendInfoFucntion(setIsBiasCorrection, (oldArray) => [
                   ...oldArray,
-                  "Bias Correction information was sent",
+                  <BiasCorrection />,
                 ])
               }}
               disabled={T1imageInput && !isBiasCorrection ? false : true}
@@ -66,7 +67,7 @@ function T1Image(props) {
               onClick={() => {
                 sendInfoFucntion(setIsVoxelBased, (oldArray) => [
                   ...oldArray,
-                  "Voxel-Based Morphometry information was sent",
+                  <VoxelBased />,
                 ])
               }}
               disabled={isSkullStrip && !isVoxelBased ? false : true}
@@ -82,7 +83,7 @@ function T1Image(props) {
               onClick={() => {
                 sendInfoFucntion(setIsStructuralSegment, (oldArray) => [
                   ...oldArray,
-                  "Structural Segmentation information was sent",
+                  <StructuralSegment />,
                 ])
               }}
               disabled={
@@ -104,7 +105,7 @@ function T1Image(props) {
               onClick={() => {
                 sendInfoFucntion(setIsTensorBased, (oldArray) => [
                   ...oldArray,
-                  "Tensor-based Morphometry information was sent",
+                  <TensorBased />,
                 ])
               }}
               disabled={

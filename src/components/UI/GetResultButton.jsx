@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react"
 
 function GetResultButton(props) {
   return (
-    <div>
+    <div className="button">
       <button
-            onClick={props.onClick}
-            disabled={props.stateOfLastElement ? false : true}
-          >
-            GET RESULT
-          </button>
+        onClick={props.onClick}
+        disabled={props.stateOfLastElement ? false : true}
+      >
+        GET RESULT
+      </button>
     </div>
   )
 }

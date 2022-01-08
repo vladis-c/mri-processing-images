@@ -4,6 +4,7 @@ import IntensityNorm from "./FlairProcess/IntensityNorm"
 import LesionSegment from "./FlairProcess/LesionSegment"
 import GetResultButton from "./UI/GetResultButton"
 import SendImageButton from "./UI/SendImageButton"
+import { FLAIR } from "../util/util"
 
 function FlairImage(props) {
   const [flairImageInput, setFlairImageInput] = useState(false)
@@ -22,18 +23,18 @@ function FlairImage(props) {
         sendInfoFucntion={() => {
           sendInfoFucntion(setFlairImageInput, (oldArray) => [
             ...oldArray,
-            "Image of Flair is sent",
+            `Image of ${FLAIR}`,
           ])
         }}
         imageState={flairImageInput}
-        sendImageMessage={"Send Image of Flair"}
+        sendImageMessage={`Send Image of ${FLAIR}`}
       />
       <div className="block">
         <button
           onClick={() => {
             sendInfoFucntion(setIsGradientAnalysis, (oldArray) => [
               ...oldArray,
-              "Gradient Analysis information is sent",
+              <GradientAnalysis/>,
             ])
           }}
           disabled={flairImageInput && !isGradientAnalysis ? false : true}
@@ -45,7 +46,7 @@ function FlairImage(props) {
           onClick={() => {
             sendInfoFucntion(setIsIntensityNorm, (oldArray) => [
               ...oldArray,
-              "Intensity Normalisation information was sent",
+              <IntensityNorm/>,
             ])
           }}
           disabled={flairImageInput && !isIntensityNorm ? false : true}
@@ -59,7 +60,7 @@ function FlairImage(props) {
           onClick={() => {
             sendInfoFucntion(setIsLesionSegmentation, (oldArray) => [
               ...oldArray,
-              "Lesion Segmentation information was sent",
+              <LesionSegment/>,
             ])
           }}
           disabled={

@@ -11,6 +11,7 @@ import IntensityNorm from "./FlairProcess/IntensityNorm"
 import LesionSegment from "./FlairProcess/LesionSegment"
 import CoRegistration from "./CommonProcess/CoRegistration"
 import Hyperintensity from "./CommonProcess/Hyperintensity"
+import { T1FLAIR } from "../util/util"
 
 function T1AndFlare(props) {
   const [imageInput, setT1ImageInput] = useState(false)
@@ -39,19 +40,19 @@ function T1AndFlare(props) {
           sendInfoFucntion={() =>
             sendInfoFucntion(setT1ImageInput, (oldArray) => [
               ...oldArray,
-              "Image of T1 is sent",
+              `Images of ${T1FLAIR}`,
             ])
           }
           imageState={imageInput}
-          sendImageMessage={"Send Images of T1 and Flair"}
+          sendImageMessage={`Send Images of ${T1FLAIR}`}
         />
         <div>
-          <div className="block">
+          <div className="grid">
             <button
               onClick={() => {
                 sendInfoFucntion(setIsSkullStrip, (oldArray) => [
                   ...oldArray,
-                  "Skull Strip information is sent",
+                  <SkullStrip />,
                 ])
               }}
               disabled={imageInput && !isSkullStrip ? false : true}
@@ -63,7 +64,7 @@ function T1AndFlare(props) {
               onClick={() => {
                 sendInfoFucntion(setIsBiasCorrection, (oldArray) => [
                   ...oldArray,
-                  "Bias Correction information was sent",
+                  <BiasCorrection />,
                 ])
               }}
               disabled={imageInput && !isBiasCorrection ? false : true}
@@ -71,13 +72,37 @@ function T1AndFlare(props) {
               <BiasCorrection />
             </button>
             <label></label>
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsGradientAnalysis, (oldArray) => [
+                  ...oldArray,
+                  <GradientAnalysis />,
+                ])
+              }}
+              disabled={imageInput && !isGradientAnalysis ? false : true}
+            >
+              <GradientAnalysis />
+            </button>
+            <label></label>
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsIntensityNorm, (oldArray) => [
+                  ...oldArray,
+                  <IntensityNorm />,
+                ])
+              }}
+              disabled={imageInput && !isIntensityNorm ? false : true}
+            >
+              <IntensityNorm />
+            </button>
+            <label></label>
           </div>
-          <div className="block">
+          <div className="grid">
             <button
               onClick={() => {
                 sendInfoFucntion(setIsVoxelBased, (oldArray) => [
                   ...oldArray,
-                  "Voxel-Based Morphometry information was sent",
+                  <VoxelBased />,
                 ])
               }}
               disabled={isSkullStrip && !isVoxelBased ? false : true}
@@ -93,7 +118,7 @@ function T1AndFlare(props) {
               onClick={() => {
                 sendInfoFucntion(setIsStructuralSegment, (oldArray) => [
                   ...oldArray,
-                  "Structural Segmentation information was sent",
+                  <StructuralSegment />,
                 ])
               }}
               disabled={
@@ -109,63 +134,11 @@ function T1AndFlare(props) {
                 ? ""
                 : " To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"}
             </label>
-          </div>
-          <div className="block">
-            <button
-              onClick={() => {
-                sendInfoFucntion(setIsTensorBased, (oldArray) => [
-                  ...oldArray,
-                  "Tensor-based Morphometry information was sent",
-                ])
-              }}
-              disabled={
-                isVoxelBased && isStructuralSegment && !isTensorBased
-                  ? false
-                  : true
-              }
-            >
-              <TensorBased />
-            </button>
-            <label>
-              {isVoxelBased && isStructuralSegment && !isTensorBased
-                ? ""
-                : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"}
-            </label>
-          </div>
-
-          <div className="block">
-            <button
-              onClick={() => {
-                sendInfoFucntion(setIsGradientAnalysis, (oldArray) => [
-                  ...oldArray,
-                  "Gradient Analysis information is sent",
-                ])
-              }}
-              disabled={imageInput && !isGradientAnalysis ? false : true}
-            >
-              <GradientAnalysis />
-            </button>
-            <label></label>
-            <button
-              onClick={() => {
-                sendInfoFucntion(setIsIntensityNorm, (oldArray) => [
-                  ...oldArray,
-                  "Intensity Normalisation information was sent",
-                ])
-              }}
-              disabled={imageInput && !isIntensityNorm ? false : true}
-            >
-              <IntensityNorm />
-            </button>
-            <label></label>
-          </div>
-
-          <div className="block">
             <button
               onClick={() => {
                 sendInfoFucntion(setIsLesionSegmentation, (oldArray) => [
                   ...oldArray,
-                  "Lesion Segmentation information was sent",
+                  <LesionSegment />,
                 ])
               }}
               disabled={
@@ -185,9 +158,30 @@ function T1AndFlare(props) {
           <div className="block">
             <button
               onClick={() => {
+                sendInfoFucntion(setIsTensorBased, (oldArray) => [
+                  ...oldArray,
+                  <TensorBased />,
+                ])
+              }}
+              disabled={
+                isVoxelBased && isStructuralSegment && !isTensorBased
+                  ? false
+                  : true
+              }
+            >
+              <TensorBased />
+            </button>
+            <label>
+              {isVoxelBased && isStructuralSegment && !isTensorBased
+                ? ""
+                : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"}
+            </label>
+
+            <button
+              onClick={() => {
                 sendInfoFucntion(setIsCoRegistration, (oldArray) => [
                   ...oldArray,
-                  "Co-Registration information is sent",
+                  <CoRegistration />,
                 ])
               }}
               disabled={
@@ -205,11 +199,12 @@ function T1AndFlare(props) {
             </label>
           </div>
           <div className="block">
+            <label id="5"></label>
             <button
               onClick={() => {
                 sendInfoFucntion(setIsHyperintensity, (oldArray) => [
                   ...oldArray,
-                  "Hyperintensity information was sent",
+                  <Hyperintensity />,
                 ])
               }}
               disabled={!isHyperintensity && isCoRegistration ? false : true}
