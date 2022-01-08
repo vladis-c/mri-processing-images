@@ -172,7 +172,7 @@ function T1AndFlare(props) {
               <TensorBased />
             </button>
             <label>
-              {isVoxelBased && isStructuralSegment && !isTensorBased
+              {isVoxelBased && isStructuralSegment
                 ? ""
                 : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"}
             </label>
@@ -193,7 +193,7 @@ function T1AndFlare(props) {
               <CoRegistration />
             </button>
             <label>
-              {isLesionSegmentation && isStructuralSegment && !isCoRegistration
+              {isLesionSegmentation && isStructuralSegment 
                 ? ""
                 : " To send data of Co-Registration, please, send data of both Structural Segmentation (from T1 Image) and Lesion Segmentation (from Flair Image)"}
             </label>
@@ -212,7 +212,7 @@ function T1AndFlare(props) {
               <Hyperintensity />
             </button>
             <label>
-              {isLesionSegmentation && isStructuralSegment
+              {isCoRegistration
                 ? ""
                 : " To send data of Hyperintensity, please, send data of Co-Registration"}
             </label>

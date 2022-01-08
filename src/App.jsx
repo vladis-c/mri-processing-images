@@ -7,7 +7,6 @@ import { FLAIR, switchStateHandler, T1, T1FLAIR } from "./util/util"
 
 function App() {
   const [resultArray, setResultArray] = useState([])
-
   const [isResult, setIsResult] = useState(false)
   const [choice, setChoice] = useState({})
 
