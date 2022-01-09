@@ -9,6 +9,7 @@ function GetResultButton(props) {
       >
         GET RESULT
       </button>
+      <label>{props.label}</label>
     </div>
   )
 }

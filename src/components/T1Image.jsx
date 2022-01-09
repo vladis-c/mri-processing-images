@@ -6,6 +6,7 @@ import StructuralSegment from "./T1Process/StructuralSegment"
 import TensorBased from "./T1Process/TensorBased"
 import SendImageButton from "./UI/SendImageButton"
 import GetResultButton from "./UI/GetResultButton"
+import Card from "./Card/Card"
 import { T1 } from "../util/util"
 
 function T1Image(props) {
@@ -34,10 +35,9 @@ function T1Image(props) {
           imageState={T1imageInput}
           sendImageMessage={`Send Image of ${T1}`}
         />
-
         <div>
-          <div className="block">
-            <button
+          <div className="grid">
+            <Card
               onClick={() => {
                 sendInfoFucntion(setIsSkullStrip, (oldArray) => [
                   ...oldArray,
@@ -45,11 +45,10 @@ function T1Image(props) {
                 ])
               }}
               disabled={T1imageInput && !isSkullStrip ? false : true}
-            >
-              <SkullStrip />
-            </button>
-            <label></label>
-            <button
+              text={<SkullStrip />}
+            />
+
+            <Card
               onClick={() => {
                 sendInfoFucntion(setIsBiasCorrection, (oldArray) => [
                   ...oldArray,
@@ -57,13 +56,11 @@ function T1Image(props) {
                 ])
               }}
               disabled={T1imageInput && !isBiasCorrection ? false : true}
-            >
-              <BiasCorrection />
-            </button>
-            <label></label>
+              text={<BiasCorrection />}
+            />
           </div>
-          <div className="block">
-            <button
+          <div className="grid">
+            <Card
               onClick={() => {
                 sendInfoFucntion(setIsVoxelBased, (oldArray) => [
                   ...oldArray,
@@ -71,15 +68,14 @@ function T1Image(props) {
                 ])
               }}
               disabled={isSkullStrip && !isVoxelBased ? false : true}
-            >
-              <VoxelBased />
-            </button>
-            <label>
-              {isSkullStrip
-                ? ""
-                : " To send data of Voxel-based Morphometry, please, send data of Skull-Strip"}
-            </label>
-            <button
+              text={<VoxelBased />}
+              label={
+                isSkullStrip
+                  ? ""
+                  : " To send data of Voxel-based Morphometry, please, send data of Skull-Strip"
+              }
+            />
+            <Card
               onClick={() => {
                 sendInfoFucntion(setIsStructuralSegment, (oldArray) => [
                   ...oldArray,
@@ -91,17 +87,16 @@ function T1Image(props) {
                   ? false
                   : true
               }
-            >
-              <StructuralSegment />
-            </button>
-            <label>
-              {isBiasCorrection && isSkullStrip
-                ? ""
-                : " To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"}
-            </label>
+              text={<StructuralSegment />}
+              label={
+                isBiasCorrection && isSkullStrip
+                  ? ""
+                  : " To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"
+              }
+            />
           </div>
-          <div className="block">
-            <button
+          <div className="grid">
+            <Card
               onClick={() => {
                 sendInfoFucntion(setIsTensorBased, (oldArray) => [
                   ...oldArray,
@@ -113,14 +108,13 @@ function T1Image(props) {
                   ? false
                   : true
               }
-            >
-              <TensorBased />
-            </button>
-            <label>
-              {isVoxelBased && isStructuralSegment
-                ? ""
-                : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"}
-            </label>
+              text={<TensorBased />}
+              label={
+                isVoxelBased && isStructuralSegment
+                  ? ""
+                  : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"
+              }
+            />
           </div>
           <GetResultButton
             onClick={() => props.setIsResult(true)}

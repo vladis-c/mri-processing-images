@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react"
 import T1Image from "./components/T1Image"
 import FlairImage from "./components/FlairImage"
 import Result from "./components/Result"
-import T1AndFlare from "./components/T1AndFlare"
+import T1AndFlair from "./components/T1AndFlair"
 import { FLAIR, switchStateHandler, T1, T1FLAIR } from "./util/util"
 
 function App() {
@@ -81,11 +81,11 @@ function App() {
           {!isResult ? (
             <div>
               <h2 style={{ margin: "10px" }}>{choice.heading} INPUT IMAGES</h2>
-              <T1AndFlare
+              <T1AndFlair
                 setResultArray={setResultArray}
                 setIsResult={setIsResult}
                 switchStateHandler={switchStateHandler}
-              ></T1AndFlare>
+              ></T1AndFlair>
             </div>
           ) : (
             <Result resultData={resultData} heading={choice.heading} />

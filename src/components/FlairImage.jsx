@@ -4,6 +4,7 @@ import IntensityNorm from "./FlairProcess/IntensityNorm"
 import LesionSegment from "./FlairProcess/LesionSegment"
 import GetResultButton from "./UI/GetResultButton"
 import SendImageButton from "./UI/SendImageButton"
+import Card from "./Card/Card"
 import { FLAIR } from "../util/util"
 
 function FlairImage(props) {
@@ -29,38 +30,35 @@ function FlairImage(props) {
         imageState={flairImageInput}
         sendImageMessage={`Send Image of ${FLAIR}`}
       />
-      <div className="block">
-        <button
+      <div className="grid">
+        <Card
           onClick={() => {
             sendInfoFucntion(setIsGradientAnalysis, (oldArray) => [
               ...oldArray,
-              <GradientAnalysis/>,
+              <GradientAnalysis />,
             ])
           }}
           disabled={flairImageInput && !isGradientAnalysis ? false : true}
-        >
-          <GradientAnalysis />
-        </button>
-        <label></label>
-        <button
+          text={<GradientAnalysis />}
+        />
+
+        <Card
           onClick={() => {
             sendInfoFucntion(setIsIntensityNorm, (oldArray) => [
               ...oldArray,
-              <IntensityNorm/>,
+              <IntensityNorm />,
             ])
           }}
           disabled={flairImageInput && !isIntensityNorm ? false : true}
-        >
-          <IntensityNorm />
-        </button>
-        <label></label>
+          text={<IntensityNorm />}
+        />
       </div>
-      <div className="block">
-        <button
+      <div className="grid">
+        <Card
           onClick={() => {
             sendInfoFucntion(setIsLesionSegmentation, (oldArray) => [
               ...oldArray,
-              <LesionSegment/>,
+              <LesionSegment />,
             ])
           }}
           disabled={
@@ -68,14 +66,13 @@ function FlairImage(props) {
               ? false
               : true
           }
-        >
-          <LesionSegment />
-        </button>
-        <label>
-          {isGradientAnalysis && isIntensityNorm
-            ? ""
-            : " To send data of Lesion Segmentation, please, send data of both Gradient Analysis and Intensity Normalisation"}
-        </label>
+          text={<LesionSegment />}
+          label={
+            isGradientAnalysis && isIntensityNorm
+              ? ""
+              : ` To send data of Lesion Segmentation, please, send data of both Gradient Analysis and Intensity Normalisation`
+          }
+        />
       </div>
       <GetResultButton
         onClick={() => props.setIsResult(true)}
