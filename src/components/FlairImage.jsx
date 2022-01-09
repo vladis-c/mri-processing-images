@@ -5,6 +5,8 @@ import LesionSegment from "./FlairProcess/LesionSegment"
 import GetResultButton from "./UI/GetResultButton"
 import SendImageButton from "./UI/SendImageButton"
 import { FLAIR } from "../util/util"
+import axios from "axios"
+
 
 function FlairImage(props) {
   const [flairImageInput, setFlairImageInput] = useState(false)
@@ -12,19 +14,20 @@ function FlairImage(props) {
   const [isIntensityNorm, setIsIntensityNorm] = useState(false)
   const [isLesionSegmentation, setIsLesionSegmentation] = useState(false)
 
-  function sendInfoFucntion(prop1, prop2) {
-    props.switchStateHandler(prop1)
-    props.setResultArray(prop2)
+  async function postHadler(prop) {
+    await axios
+      .post(`http://localhost:4001/flair`, {
+        title: prop,
+      })
+      .catch((err) => console.log(err))
   }
 
   return (
     <Fragment>
       <SendImageButton
         sendInfoFucntion={() => {
-          sendInfoFucntion(setFlairImageInput, (oldArray) => [
-            ...oldArray,
-            `Image of ${FLAIR}`,
-          ])
+          props.switchStateHandler(setFlairImageInput)
+          postHadler(`Images of ${FLAIR}`)
         }}
         imageState={flairImageInput}
         sendImageMessage={`Send Image of ${FLAIR}`}
@@ -32,10 +35,8 @@ function FlairImage(props) {
       <div className="block">
         <button
           onClick={() => {
-            sendInfoFucntion(setIsGradientAnalysis, (oldArray) => [
-              ...oldArray,
-              <GradientAnalysis/>,
-            ])
+            props.switchStateHandler(setIsGradientAnalysis)
+            postHadler("Gradient Analysis")
           }}
           disabled={flairImageInput && !isGradientAnalysis ? false : true}
         >
@@ -44,10 +45,8 @@ function FlairImage(props) {
         <label></label>
         <button
           onClick={() => {
-            sendInfoFucntion(setIsIntensityNorm, (oldArray) => [
-              ...oldArray,
-              <IntensityNorm/>,
-            ])
+            props.switchStateHandler(setIsIntensityNorm)
+            postHadler("Intensity Normality")
           }}
           disabled={flairImageInput && !isIntensityNorm ? false : true}
         >
@@ -58,10 +57,8 @@ function FlairImage(props) {
       <div className="block">
         <button
           onClick={() => {
-            sendInfoFucntion(setIsLesionSegmentation, (oldArray) => [
-              ...oldArray,
-              <LesionSegment/>,
-            ])
+            props.switchStateHandler(setIsLesionSegmentation)
+            postHadler("Lesion Segmentation")
           }}
           disabled={
             isGradientAnalysis && isIntensityNorm && !isLesionSegmentation

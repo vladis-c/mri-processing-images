@@ -7,6 +7,7 @@ import TensorBased from "./T1Process/TensorBased"
 import SendImageButton from "./UI/SendImageButton"
 import GetResultButton from "./UI/GetResultButton"
 import { T1 } from "../util/util"
+import axios from "axios"
 
 function T1Image(props) {
   const [T1imageInput, setT1ImageInput] = useState(false)
@@ -14,35 +15,33 @@ function T1Image(props) {
   const [isBiasCorrection, setIsBiasCorrection] = useState(false)
   const [isVoxelBased, setIsVoxelBased] = useState(false)
   const [isStructuralSegment, setIsStructuralSegment] = useState(false)
-  const [isTensorBased, setIsTensorBased] = useState(false)
+  const [isTensorBased, setIsTensorBased] = useState(false)  
 
-  function sendInfoFucntion(prop1, prop2) {
-    props.switchStateHandler(prop1)
-    props.setResultArray(prop2)
+  async function postHadler(prop) {
+    await axios
+      .post(`http://localhost:4000/T1`, {
+        title: prop,
+      })
+      .catch((err) => console.log(err))
   }
 
   return (
     <Fragment>
       <div>
-        <SendImageButton
-          sendInfoFucntion={() =>
-            sendInfoFucntion(setT1ImageInput, (oldArray) => [
-              ...oldArray,
-              `Image of ${T1}`,
-            ])
-          }
+      <SendImageButton
+          sendInfoFucntion={() => {
+            props.switchStateHandler(setT1ImageInput)
+            postHadler(`Images of ${T1}`)
+          }}
           imageState={T1imageInput}
-          sendImageMessage={`Send Image of ${T1}`}
+          sendImageMessage={`Send Images of ${T1}`}
         />
-
         <div>
           <div className="block">
             <button
               onClick={() => {
-                sendInfoFucntion(setIsSkullStrip, (oldArray) => [
-                  ...oldArray,
-                  <SkullStrip />,
-                ])
+                props.switchStateHandler(setIsSkullStrip)
+                postHadler("Skull Strip")
               }}
               disabled={T1imageInput && !isSkullStrip ? false : true}
             >
@@ -50,12 +49,10 @@ function T1Image(props) {
             </button>
             <label></label>
             <button
-              onClick={() => {
-                sendInfoFucntion(setIsBiasCorrection, (oldArray) => [
-                  ...oldArray,
-                  <BiasCorrection />,
-                ])
-              }}
+             onClick={() => {
+              props.switchStateHandler(setIsBiasCorrection)
+              postHadler("Bias Correction")
+            }}
               disabled={T1imageInput && !isBiasCorrection ? false : true}
             >
               <BiasCorrection />
@@ -65,10 +62,8 @@ function T1Image(props) {
           <div className="block">
             <button
               onClick={() => {
-                sendInfoFucntion(setIsVoxelBased, (oldArray) => [
-                  ...oldArray,
-                  <VoxelBased />,
-                ])
+                props.switchStateHandler(setIsVoxelBased)
+                postHadler("Voxel-based morphometry")
               }}
               disabled={isSkullStrip && !isVoxelBased ? false : true}
             >
@@ -81,10 +76,8 @@ function T1Image(props) {
             </label>
             <button
               onClick={() => {
-                sendInfoFucntion(setIsStructuralSegment, (oldArray) => [
-                  ...oldArray,
-                  <StructuralSegment />,
-                ])
+                props.switchStateHandler(setIsStructuralSegment)
+                postHadler("Structural Segmentation")
               }}
               disabled={
                 isSkullStrip && isBiasCorrection && !isStructuralSegment
@@ -103,10 +96,8 @@ function T1Image(props) {
           <div className="block">
             <button
               onClick={() => {
-                sendInfoFucntion(setIsTensorBased, (oldArray) => [
-                  ...oldArray,
-                  <TensorBased />,
-                ])
+                props.switchStateHandler(setIsTensorBased)
+                postHadler("Tensor-based morphometry")
               }}
               disabled={
                 isVoxelBased && isStructuralSegment && !isTensorBased

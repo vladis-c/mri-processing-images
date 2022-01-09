@@ -1,9 +1,10 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import T1Image from "./components/T1Image"
 import FlairImage from "./components/FlairImage"
 import Result from "./components/Result"
-import T1AndFlare from "./components/T1AndFlare"
+import T1AndFlare from "./components/T1AndFlair"
 import { FLAIR, switchStateHandler, T1, T1FLAIR } from "./util/util"
+import axios from "axios"
 
 function App() {
   const [resultArray, setResultArray] = useState([])
@@ -11,6 +12,49 @@ function App() {
   const [choice, setChoice] = useState({})
 
   const resultData = resultArray.map((el, key) => <p key={key}>{el}</p>)
+
+  const [titlesOfT1, setTitlesOfT1] = useState({})
+  const [titlesOfFlair, setTitlesOfFlair] = useState({})
+  const [titlesOfT1Flair, setTitlesOfT1Flair] = useState({})
+
+  async function getT1Handler() {
+    const res = await axios.get("http://localhost:4000/T1")
+    setTitlesOfT1(res.data)
+  }
+
+  useEffect(() => {
+    getT1Handler()
+  }, [titlesOfT1])
+
+  async function getFlairHandler() {
+    const res = await axios.get("http://localhost:4001/flair")
+    setTitlesOfFlair(res.data)
+  }
+
+  useEffect(() => {
+    getFlairHandler()
+  }, [titlesOfFlair])
+
+  async function getT1FlairHandler() {
+    const res = await axios.get("http://localhost:4002/T1flair")
+    setTitlesOfT1Flair(res.data)
+  }
+
+  useEffect(() => {
+    getT1FlairHandler()
+  }, [titlesOfT1Flair])
+
+  const conditions =
+    choice.value === 1
+      ? titlesOfT1
+      : choice.value === 2
+      ? titlesOfFlair
+      : choice.value === 3 ?
+      titlesOfT1Flair : ""
+
+  const renderedTitles = Object.values(conditions).map((title) => {
+    return <p key={title.id}>{title.title}</p>
+  })
 
   return (
     <Fragment>
@@ -56,7 +100,11 @@ function App() {
               ></T1Image>
             </div>
           ) : (
-            <Result resultData={resultData} heading={choice.heading} />
+            <Result
+              resultData={resultData}
+              heading={choice.heading}
+              renderedTitles={renderedTitles}
+            />
           )}
         </div>
       )}
@@ -72,7 +120,11 @@ function App() {
               ></FlairImage>
             </div>
           ) : (
-            <Result resultData={resultData} heading={choice.heading} />
+            <Result
+              resultData={resultData}
+              heading={choice.heading}
+              renderedTitles={renderedTitles}
+            />
           )}
         </div>
       )}
@@ -88,7 +140,11 @@ function App() {
               ></T1AndFlare>
             </div>
           ) : (
-            <Result resultData={resultData} heading={choice.heading} />
+            <Result
+              resultData={resultData}
+              heading={choice.heading}
+              renderedTitles={renderedTitles}
+            />
           )}
         </div>
       )}
