@@ -7,11 +7,8 @@ import { FLAIR, switchStateHandler, T1, T1FLAIR } from "./util/util"
 import axios from "axios"
 
 function App() {
-  const [resultArray, setResultArray] = useState([])
   const [isResult, setIsResult] = useState(false)
   const [choice, setChoice] = useState({})
-
-  const resultData = resultArray.map((el, key) => <p key={key}>{el}</p>)
 
   const [titlesOfT1, setTitlesOfT1] = useState({})
   const [titlesOfFlair, setTitlesOfFlair] = useState({})
@@ -49,8 +46,9 @@ function App() {
       ? titlesOfT1
       : choice.value === 2
       ? titlesOfFlair
-      : choice.value === 3 ?
-      titlesOfT1Flair : ""
+      : choice.value === 3
+      ? titlesOfT1Flair
+      : ""
 
   const renderedTitles = Object.values(conditions).map((title) => {
     return <p key={title.id}>{title.title}</p>
@@ -63,7 +61,6 @@ function App() {
         <button
           onClick={() => {
             setChoice({ value: 1, heading: T1 })
-            setResultArray([])
             setIsResult(false)
           }}
         >
@@ -72,7 +69,6 @@ function App() {
         <button
           onClick={() => {
             setChoice({ value: 2, heading: FLAIR })
-            setResultArray([])
             setIsResult(false)
           }}
         >
@@ -81,7 +77,6 @@ function App() {
         <button
           onClick={() => {
             setChoice({ value: 3, heading: T1FLAIR })
-            setResultArray([])
             setIsResult(false)
           }}
         >
@@ -94,17 +89,12 @@ function App() {
             <div>
               <h2 style={{ margin: "10px" }}>{choice.heading} INPUT IMAGE</h2>
               <T1Image
-                setResultArray={setResultArray}
                 setIsResult={setIsResult}
                 switchStateHandler={switchStateHandler}
               ></T1Image>
             </div>
           ) : (
-            <Result
-              resultData={resultData}
-              heading={choice.heading}
-              renderedTitles={renderedTitles}
-            />
+            <Result heading={choice.heading} renderedTitles={renderedTitles} />
           )}
         </div>
       )}
@@ -114,17 +104,12 @@ function App() {
             <div>
               <h2 style={{ margin: "10px" }}>{choice.heading} INPUT IMAGE</h2>
               <FlairImage
-                setResultArray={setResultArray}
                 setIsResult={setIsResult}
                 switchStateHandler={switchStateHandler}
               ></FlairImage>
             </div>
           ) : (
-            <Result
-              resultData={resultData}
-              heading={choice.heading}
-              renderedTitles={renderedTitles}
-            />
+            <Result heading={choice.heading} renderedTitles={renderedTitles} />
           )}
         </div>
       )}
@@ -134,17 +119,12 @@ function App() {
             <div>
               <h2 style={{ margin: "10px" }}>{choice.heading} INPUT IMAGES</h2>
               <T1AndFlare
-                setResultArray={setResultArray}
                 setIsResult={setIsResult}
                 switchStateHandler={switchStateHandler}
               ></T1AndFlare>
             </div>
           ) : (
-            <Result
-              resultData={resultData}
-              heading={choice.heading}
-              renderedTitles={renderedTitles}
-            />
+            <Result heading={choice.heading} renderedTitles={renderedTitles} />
           )}
         </div>
       )}
