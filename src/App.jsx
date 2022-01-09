@@ -10,7 +10,7 @@ function App() {
   const [isResult, setIsResult] = useState(false)
   const [choice, setChoice] = useState({})
 
-  const resultData = resultArray.map((el, key) => <p key={key}>{el}</p>)
+  const resultData = resultArray.map((el, key) => <p key={key}>{key+1}. {el}</p>)
 
   return (
     <Fragment>
