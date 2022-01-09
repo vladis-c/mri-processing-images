@@ -12,7 +12,6 @@ import LesionSegment from "./FlairProcess/LesionSegment"
 import CoRegistration from "./CommonProcess/CoRegistration"
 import Hyperintensity from "./CommonProcess/Hyperintensity"
 import { T1FLAIR } from "../util/util"
-import axios from "axios"
 
 function T1AndFlare(props) {
   const [imageInput, setT1ImageInput] = useState(false)
@@ -29,179 +28,200 @@ function T1AndFlare(props) {
   const [isCoRegistration, setIsCoRegistration] = useState(false)
   const [isHyperintensity, setIsHyperintensity] = useState(false)
 
-  async function postHadler(prop) {
-    await axios
-      .post(`http://localhost:4002/T1flair`, {
-        title: prop,
-      })
-      .catch((err) => console.log(err))
+  function sendInfoFucntion(prop1, prop2) {
+    props.switchStateHandler(prop1)
+    props.setResultArray(prop2)
   }
 
   return (
     <Fragment>
-      <SendImageButton
-        sendInfoFucntion={() => {
-          props.switchStateHandler(setT1ImageInput)
-          postHadler(`Images of ${T1FLAIR}`)
-        }}
-        imageState={imageInput}
-        sendImageMessage={`Send Images of ${T1FLAIR}`}
-      />
       <div>
-        <div className="grid">
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsSkullStrip)
-              postHadler("Skull Strip")
-            }}
-            disabled={imageInput && !isSkullStrip ? false : true}
-          >
-            <SkullStrip />
-          </button>
-          <label id="1"></label>
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsBiasCorrection)
-              postHadler("Bias Correction")
-            }}
-            disabled={imageInput && !isBiasCorrection ? false : true}
-          >
-            <BiasCorrection />
-          </button>
-          <label id="2"></label>
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsGradientAnalysis)
-              postHadler("Gradient Analysis")
-            }}
-            disabled={imageInput && !isGradientAnalysis ? false : true}
-          >
-            <GradientAnalysis />
-          </button>
-          <label id="3"></label>
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsIntensityNorm)
-              postHadler("Intensity Normality")
-            }}
-            disabled={imageInput && !isIntensityNorm ? false : true}
-          >
-            <IntensityNorm />
-          </button>
-          <label id="4"></label>
-        </div>
-        <div className="grid">
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsVoxelBased)
-              postHadler("Voxel-based morphometry")
-            }}
-            disabled={isSkullStrip && !isVoxelBased ? false : true}
-          >
-            <VoxelBased />
-          </button>
-          <label>
-            {isSkullStrip
-              ? ""
-              : " To send data of Voxel-based Morphometry, please, send data of Skull-Strip"}
-          </label>
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsStructuralSegment)
-              postHadler("Structural Segmentation")
-            }}
-            disabled={
-              isSkullStrip && isBiasCorrection && !isStructuralSegment
-                ? false
-                : true
-            }
-          >
-            <StructuralSegment />
-          </button>
-          <label>
-            {isBiasCorrection && isSkullStrip
-              ? ""
-              : " To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"}
-          </label>
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsLesionSegmentation)
-              postHadler("Lesion Segmentation")
-            }}
-            disabled={
-              isGradientAnalysis && isIntensityNorm && !isLesionSegmentation
-                ? false
-                : true
-            }
-          >
-            <LesionSegment />
-          </button>
-          <label>
-            {isGradientAnalysis && isIntensityNorm
-              ? ""
-              : " To send data of Lesion Segmentation, please, send data of both Gradient Analysis and Intensity Normalisation"}
-          </label>
-        </div>
-        <div className="block">
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsTensorBased)
-              postHadler("Tensor-based morphometry")
-            }}
-            disabled={
-              isVoxelBased && isStructuralSegment && !isTensorBased
-                ? false
-                : true
-            }
-          >
-            <TensorBased />
-          </button>
-          <label>
-            {isVoxelBased && isStructuralSegment
-              ? ""
-              : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"}
-          </label>
-
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsCoRegistration)
-              postHadler("Co-registration")
-            }}
-            disabled={
-              isStructuralSegment && isLesionSegmentation && !isCoRegistration
-                ? false
-                : true
-            }
-          >
-            <CoRegistration />
-          </button>
-          <label>
-            {isLesionSegmentation && isStructuralSegment
-              ? ""
-              : " To send data of Co-Registration, please, send data of both Structural Segmentation (from T1 Image) and Lesion Segmentation (from Flair Image)"}
-          </label>
-        </div>
-        <div className="block">
-          <label id="5"></label>
-          <button
-            onClick={() => {
-              props.switchStateHandler(setIsHyperintensity)
-              postHadler("Hyperintensity")
-            }}
-            disabled={!isHyperintensity && isCoRegistration ? false : true}
-          >
-            <Hyperintensity />
-          </button>
-          <label>
-            {isCoRegistration
-              ? ""
-              : " To send data of Hyperintensity, please, send data of Co-Registration"}
-          </label>
-        </div>
-        <GetResultButton
-          onClick={() => props.setIsResult(true)}
-          stateOfLastElement={isTensorBased && isHyperintensity}
+        <SendImageButton
+          sendInfoFucntion={() =>
+            sendInfoFucntion(setT1ImageInput, (oldArray) => [
+              ...oldArray,
+              `Images of ${T1FLAIR}`,
+            ])
+          }
+          imageState={imageInput}
+          sendImageMessage={`Send Images of ${T1FLAIR}`}
         />
+        <div>
+          <div className="grid">
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsSkullStrip, (oldArray) => [
+                  ...oldArray,
+                  <SkullStrip />,
+                ])
+              }}
+              disabled={imageInput && !isSkullStrip ? false : true}
+            >
+              <SkullStrip />
+            </button>
+            <label></label>
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsBiasCorrection, (oldArray) => [
+                  ...oldArray,
+                  <BiasCorrection />,
+                ])
+              }}
+              disabled={imageInput && !isBiasCorrection ? false : true}
+            >
+              <BiasCorrection />
+            </button>
+            <label></label>
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsGradientAnalysis, (oldArray) => [
+                  ...oldArray,
+                  <GradientAnalysis />,
+                ])
+              }}
+              disabled={imageInput && !isGradientAnalysis ? false : true}
+            >
+              <GradientAnalysis />
+            </button>
+            <label></label>
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsIntensityNorm, (oldArray) => [
+                  ...oldArray,
+                  <IntensityNorm />,
+                ])
+              }}
+              disabled={imageInput && !isIntensityNorm ? false : true}
+            >
+              <IntensityNorm />
+            </button>
+            <label></label>
+          </div>
+          <div className="grid">
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsVoxelBased, (oldArray) => [
+                  ...oldArray,
+                  <VoxelBased />,
+                ])
+              }}
+              disabled={isSkullStrip && !isVoxelBased ? false : true}
+            >
+              <VoxelBased />
+            </button>
+            <label>
+              {isSkullStrip
+                ? ""
+                : " To send data of Voxel-based Morphometry, please, send data of Skull-Strip"}
+            </label>
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsStructuralSegment, (oldArray) => [
+                  ...oldArray,
+                  <StructuralSegment />,
+                ])
+              }}
+              disabled={
+                isSkullStrip && isBiasCorrection && !isStructuralSegment
+                  ? false
+                  : true
+              }
+            >
+              <StructuralSegment />
+            </button>
+            <label>
+              {isBiasCorrection && isSkullStrip
+                ? ""
+                : " To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"}
+            </label>
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsLesionSegmentation, (oldArray) => [
+                  ...oldArray,
+                  <LesionSegment />,
+                ])
+              }}
+              disabled={
+                isGradientAnalysis && isIntensityNorm && !isLesionSegmentation
+                  ? false
+                  : true
+              }
+            >
+              <LesionSegment />
+            </button>
+            <label>
+              {isGradientAnalysis && isIntensityNorm
+                ? ""
+                : " To send data of Lesion Segmentation, please, send data of both Gradient Analysis and Intensity Normalisation"}
+            </label>
+          </div>
+          <div className="block">
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsTensorBased, (oldArray) => [
+                  ...oldArray,
+                  <TensorBased />,
+                ])
+              }}
+              disabled={
+                isVoxelBased && isStructuralSegment && !isTensorBased
+                  ? false
+                  : true
+              }
+            >
+              <TensorBased />
+            </button>
+            <label>
+              {isVoxelBased && isStructuralSegment
+                ? ""
+                : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"}
+            </label>
+
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsCoRegistration, (oldArray) => [
+                  ...oldArray,
+                  <CoRegistration />,
+                ])
+              }}
+              disabled={
+                isStructuralSegment && isLesionSegmentation && !isCoRegistration
+                  ? false
+                  : true
+              }
+            >
+              <CoRegistration />
+            </button>
+            <label>
+              {isLesionSegmentation && isStructuralSegment 
+                ? ""
+                : " To send data of Co-Registration, please, send data of both Structural Segmentation (from T1 Image) and Lesion Segmentation (from Flair Image)"}
+            </label>
+          </div>
+          <div className="block">
+            <label id="5"></label>
+            <button
+              onClick={() => {
+                sendInfoFucntion(setIsHyperintensity, (oldArray) => [
+                  ...oldArray,
+                  <Hyperintensity />,
+                ])
+              }}
+              disabled={!isHyperintensity && isCoRegistration ? false : true}
+            >
+              <Hyperintensity />
+            </button>
+            <label>
+              {isCoRegistration
+                ? ""
+                : " To send data of Hyperintensity, please, send data of Co-Registration"}
+            </label>
+          </div>
+          <GetResultButton
+            onClick={() => props.setIsResult(true)}
+            stateOfLastElement={isTensorBased && isHyperintensity}
+          />
+        </div>
       </div>
     </Fragment>
   )
