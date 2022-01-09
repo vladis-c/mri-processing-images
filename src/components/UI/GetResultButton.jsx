@@ -5,7 +5,7 @@ function GetResultButton(props) {
     <div className="button">
       <button
         onClick={props.onClick}
-        disabled={props.stateOfLastElement ? false : true}
+        disabled={props.disabled ? false : true}
       >
         GET RESULT
       </button>

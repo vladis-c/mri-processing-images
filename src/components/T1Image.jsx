@@ -118,7 +118,10 @@ function T1Image(props) {
           </div>
           <GetResultButton
             onClick={() => props.setIsResult(true)}
-            stateOfLastElement={isTensorBased}
+            disabled={T1imageInput}
+            label={
+              "The configuration is available after sending the image"
+            }
           />
         </div>
       </div>

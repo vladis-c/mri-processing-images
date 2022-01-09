@@ -211,9 +211,9 @@ function T1AndFlair(props) {
           <div>
             <GetResultButton
               onClick={() => props.setIsResult(true)}
-              stateOfLastElement={isTensorBased || isHyperintensity}
+              disabled={imageInput}
               label={
-                "The Result can be got if either Tensor-based morphometry and/or Hyperintensity Segmentation information is send"
+                "The configuration is available after sending the images"
               }
             />
           </div>

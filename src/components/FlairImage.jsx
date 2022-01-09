@@ -76,7 +76,10 @@ function FlairImage(props) {
       </div>
       <GetResultButton
         onClick={() => props.setIsResult(true)}
-        stateOfLastElement={isLesionSegmentation}
+        disabled={flairImageInput}
+        label={
+          "The configuration is available after sending the image"
+        }
       />
     </Fragment>
   )
