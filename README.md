@@ -10,6 +10,11 @@ The task is to build a data model and a simple GUI for creating configurations f
 
 The user must not be able to create invalid configurations. Configurations examples were given as a separate file. After making the choices, the user can save the configuration, which is a plain text configuration file that can be given as input to the image processing software package when running it. The configuration file must be in a machine-readable format, which is well suited for parsing automatically by the software package (in case of this app, just a list of steps in the order). The configuration file is designed in a way that the software package reading it knows what input image types to use and which steps to run sequentially in a valid order.
 
+## Deployment
+
+App is deployed and running on 
+[https://mri-processing-images.herokuapp.com/](https://mri-processing-images.herokuapp.com/)
+
 ## Available Scripts
 
 In the project directory, you can run:
