@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function BiasCorrection() {
-  return (
-    <div>
-      <p>Bias Correction</p>
-    </div>
-  )
+  return <span>Bias Correction</span>
 }
 
 export default BiasCorrection

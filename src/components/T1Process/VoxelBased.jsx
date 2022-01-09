@@ -1,13 +1,7 @@
-import React from 'react'
-
-
+import React from "react"
 
 function VoxelBased() {
-  return (
-    <div>
-      <p>Voxel-based morphometry</p>
-    </div>
-  )
+  return <span>Voxel-based morphometry</span>
 }
 
 export default VoxelBased

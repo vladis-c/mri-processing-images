@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function GradientAnalysis() {
-  return (
-    <div>
-      <p>Gradient Analysis</p>
-    </div>
-  )
+  return <span>Gradient Analysis</span>
 }
 
 export default GradientAnalysis

@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function TensorBased() {
-  return (
-    <div>
-      <p>Tensor-based Morphometry</p>
-    </div>
-  )
+  return <span>Tensor-based Morphometry</span>
 }
 
 export default TensorBased

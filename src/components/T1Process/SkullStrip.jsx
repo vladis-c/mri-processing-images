@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function SkullStrip() {
-  return (
-    <div>
-      <p>Skull Strip</p>
-    </div>
-  )
+  return <span>Skull Strip</span>
 }
 
 export default SkullStrip

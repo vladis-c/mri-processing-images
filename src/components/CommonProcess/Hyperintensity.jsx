@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function Hyperintensity() {
-  return (
-    <div>
-      <p>Hyperintensity Segemtation</p>
-    </div>
-  )
+  return <span>Hyperintensity Segemtation</span>
 }
 
 export default Hyperintensity

@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function StructuralSegment() {
-  return (
-    <div>
-      <p>Structural Segmentation</p>
-    </div>
-  )
+  return <span>Structural Segmentation</span>
 }
 
 export default StructuralSegment

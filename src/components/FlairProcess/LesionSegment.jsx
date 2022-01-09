@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function LesionSegment() {
-  return (
-    <div>
-      <p>Lesion Segmentation</p>
-    </div>
-  )
+  return <span>Lesion Segmentation</span>
 }
 
 export default LesionSegment

@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function CoRegistration() {
-  return (
-    <div>
-      <p>Co-Registration</p>
-    </div>
-  )
+  return <span>Co-Registration</span>
 }
 
 export default CoRegistration

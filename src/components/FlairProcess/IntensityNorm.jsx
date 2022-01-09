@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function IntensityNorm() {
-  return (
-    <div>
-      <p>Intensity Normalisation</p>
-    </div>
-  )
+  return <span>Intensity Normalisation</span>
 }
 
 export default IntensityNorm
