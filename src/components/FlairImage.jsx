@@ -70,7 +70,7 @@ function FlairImage(props) {
           label={
             isGradientAnalysis && isIntensityNorm
               ? ""
-              : ` To send data of Lesion Segmentation, please, send data of both Gradient Analysis and Intensity Normalisation`
+              : `To send data of Lesion Segmentation, please, send data of Gradient Analysis and Intensity Normalisation`
           }
         />
       </div>

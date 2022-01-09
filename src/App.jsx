@@ -10,11 +10,19 @@ function App() {
   const [isResult, setIsResult] = useState(false)
   const [choice, setChoice] = useState({})
 
-  const resultData = resultArray.map((el, key) => <p key={key}>{key+1}. {el}</p>)
+  const resultData = resultArray.map((el, key) => (
+    <p key={key}>
+      {key + 1}. {el}
+    </p>
+  ))
 
   return (
     <Fragment>
-      <div style={{ margin: "10px" }}>THIS IS MRI APP</div>
+      <div style={{ margin: "10px" }}>
+        <p>THIS IS AN MRI APP</p>
+        <p>Choose the one of the options below</p>
+      </div>
+      
       <div style={{ margin: "10px" }}>
         <button
           onClick={() => {
@@ -44,6 +52,7 @@ function App() {
           {T1FLAIR}
         </button>
       </div>
+
       {choice.value === 1 && (
         <div>
           {!isResult ? (

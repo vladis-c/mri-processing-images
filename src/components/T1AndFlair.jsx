@@ -106,7 +106,7 @@ function T1AndFlair(props) {
               label={
                 isSkullStrip
                   ? ""
-                  : " To send data of Voxel-based Morphometry, please, send data of Skull-Strip"
+                  : "To send data of Voxel-based Morphometry, please, send data of Skull-Strip"
               }
             />
             <Card
@@ -125,7 +125,7 @@ function T1AndFlair(props) {
               label={
                 isBiasCorrection && isSkullStrip
                   ? ""
-                  : " To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"
+                  : "To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"
               }
             />
             <Card
@@ -144,7 +144,7 @@ function T1AndFlair(props) {
               label={
                 isGradientAnalysis && isIntensityNorm
                   ? ""
-                  : " To send data of Lesion Segmentation, please, send data of both Gradient Analysis and Intensity Normalisation"
+                  : "To send data of Lesion Segmentation, please, send data of Gradient Analysis and Intensity Normalisation"
               }
             />
           </div>
@@ -165,7 +165,7 @@ function T1AndFlair(props) {
               label={
                 isVoxelBased && isStructuralSegment
                   ? ""
-                  : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"
+                  : "To send data of Tensor-based Morphometry, please, send data of Voxel-based morphometry and Structural Segmentation"
               }
             />
             <p>{/* Dummy paragraph for styling purposes*/}</p>
@@ -185,7 +185,7 @@ function T1AndFlair(props) {
               label={
                 isLesionSegmentation && isStructuralSegment
                   ? ""
-                  : " To send data of Co-Registration, please, send data of both Structural Segmentation (from T1 Image) and Lesion Segmentation (from Flair Image)"
+                  : "To send data of Co-Registration, please, send data of Structural Segmentation and Lesion Segmentation"
               }
             />
           </div>

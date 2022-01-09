@@ -72,7 +72,7 @@ function T1Image(props) {
               label={
                 isSkullStrip
                   ? ""
-                  : " To send data of Voxel-based Morphometry, please, send data of Skull-Strip"
+                  : "To send data of Voxel-based Morphometry, please, send data of Skull-Strip"
               }
             />
             <Card
@@ -91,7 +91,7 @@ function T1Image(props) {
               label={
                 isBiasCorrection && isSkullStrip
                   ? ""
-                  : " To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"
+                  : "To send data of Structural Segmentation, please, send data of Skull-Strip and Bias Correction"
               }
             />
           </div>
@@ -112,7 +112,7 @@ function T1Image(props) {
               label={
                 isVoxelBased && isStructuralSegment
                   ? ""
-                  : " To send data of Tensor-based Morphometry, please, send data of both Voxel-based morphometry and Structural Segmentation"
+                  : "To send data of Tensor-based Morphometry, please, send data of Voxel-based morphometry and Structural Segmentation"
               }
             />
           </div>
